@@ -1,9 +1,4 @@
 corr <- function(directory, threshold = 0) {
-  # --- Assert 'directory' is a character vector of length 1 indicating the
-  # location of the CSV files.  'threshold' is a numeric vector of length 1
-  # indicating the number of completely observed observations (on all
-  # variables) required to compute the correlation between nitrate and
-  # sulfate; the default is 0.  Return a numeric vector of correlations.
   
   # --- Assert create an empty numeric vector
   corrsNum <- numeric(0)
@@ -27,7 +22,8 @@ corr <- function(directory, threshold = 0) {
 }
 
 complete <- function(directory, id = 1:332) {
- 
+
+  # --- Assert create an empty vector
   nobsNum <- numeric(0)
   
   for (cid in id) {
@@ -44,7 +40,9 @@ complete <- function(directory, id = 1:332) {
 }
 
 getmonitor <- function(id, directory, summarize = FALSE) {
-  
+
+  # --- Assert construct file name Directory is pre-appended to file name.
+  # Use sprintf() to add leading zeroes.  E.g. 'specdata/001.csv'
   fileStr <- paste(directory, "/", sprintf("%03d", as.numeric(id)), ".csv", 
                    sep = "")
   
