@@ -1,27 +1,39 @@
 complete <- function(directory, id = 1:332) {
-  
-  nobsNum <- numeric(0)
-  
-  for (cid in id) {
+    
+    # --- Assert create an empty vector
+    nobsNum <- numeric(0)
 
-    cDfr <- getmonitor(cid, directory)
+    for (cid in id) {
+        # --- Assert get data frame as ID
+        cDfr <- getmonitor(cid, directory)
 
-    nobsNum <- c(nobsNum, nrow(na.omit(cDfr)))
-  }
-  
-   data.frame(id = id, nobs = nobsNum)
+        # --- Assert count the number of complete cases and append to numeric
+        # vector
+        nobsNum <- c(nobsNum, nrow(na.omit(cDfr)))
+    }
+
+    # --- Assert return value is a data frame with TWO (2) columns
+    data.frame(id = id, nobs = nobsNum)
 }
 
 getmonitor <- function(id, directory, summarize = FALSE) {
-  
-  fileStr <- paste(directory, "/", sprintf("%03d", as.numeric(id)), ".csv", 
-                   sep = "")
-  
-  rawDfr <- read.csv(fileStr)
-  
-  if (summarize) {
-    print(summary(rawDfr))
-  }
-  
-  return(rawDfr)
+    
+    # --- Assert construct file name Directory is pre-appended to file name.
+    # Use sprintf() to add leading zeroes.  E.g. 'specdata/001.csv'
+    fileStr <- paste(directory, "/", sprintf("%03d", as.numeric(id)), ".csv", 
+        sep = "")
+
+    # --- Assert read csv
+    rawDfr <- read.csv(fileStr)
+
+    # --- Assert summary if true
+    if (summarize) {
+        print(summary(rawDfr))
+    }
+
+    # --- Return value is a data frame
+    return(rawDfr)
 }
+
+# --- Get data frame as ID = 1
+complete("specdata", 1)
